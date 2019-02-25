@@ -44,8 +44,9 @@
 			</button>
 		</div>
 
-		<form method="GET" action="{{ route('pictures.index') }}" class="form-inline my-2 my-lg-0">
-			<input class="form-control mr-sm-2" type="text" placeholder="Search by picture title..." value="{{$searchTitle}}" name="searchTitle" aria-label="Search">
+		<!-- route('pictures.index') -->
+		<form method="GET" action="" class="form-inline my-2 my-lg-0">
+			<input class="form-control mr-sm-2" type="text" placeholder="Search by picture title..." value="$searchTitle" name="searchTitle" aria-label="Search">
 
 			<button class="btn btn-outline-dark btn-sm" type="submit">Apply Filter</button>
 		</form>
@@ -63,7 +64,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<!--@foreach ($pictures as $picture)-->
+			
 				<tr>
 					<th>Заглавие на урок</th>
 					<th>Математика</th>
@@ -71,9 +72,7 @@
 					<td>Задачи по математика 1ви клас</td>
 					<td>2019-01-09</td>
 				</tr>
-			<!--@endforeach-->		
 
-			<!--@if($pictures->isEmpty())-->
 				<tr>
 					<td></td>
 					<td>Not find any pictures..</td>												
@@ -82,11 +81,11 @@
 					<td></td>
 					<td></td>
 				</tr>
-			<!--@endif-->
+			
 		</tbody>
 	</table>
 
-	<!--{{ $pictures->links("pagination::bootstrap-4") }}-->
+	
 
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -100,7 +99,8 @@
 				</div>
 
 				<div class="modal-body">
-					<form method="POST" action="{{action('PictureController@store')}}" enctype="multipart/form-data" id="form">
+					<!-- action('PictureController@store') -->
+					<form method="POST" action="" enctype="multipart/form-data" id="form">
 							{{ csrf_field() }}
 						<div class="form-group">
 								<label for="title">Title</label>
