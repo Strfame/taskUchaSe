@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 
 Route::get('/video_course', 'VideoCourseController@index');
+Route::get('/show', 'VideoCourseController@show');

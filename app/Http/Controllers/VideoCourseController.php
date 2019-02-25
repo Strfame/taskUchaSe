@@ -10,4 +10,10 @@ class VideoCourseController extends Controller
 
         return view('video_course.index');
     }
+	
+	
+	public function show() {
+		
+		return view('video_course.show');
+	}
 }
