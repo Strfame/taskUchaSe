@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('video_courses', 'VideoCourseController')
+    ->only(['index', 'store']);
 
-Route::get('/video_course', 'VideoCourseController@index');
-Route::get('/show', 'VideoCourseController@show');
+// Route::get('/video_course', 'VideoCourseController@index');
+// Route::get('/show', 'VideoCourseController@show');
