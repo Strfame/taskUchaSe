@@ -14,7 +14,16 @@
 
 		<script src="{{URL::to('js/main.js')}}"></script>
 				
-        <title>App Name - @yield('title')</title>
+        <title>@yield('title')</title>
+
+        <style>
+            span.match{
+                background-color:#f8dda9;
+                border:1px solid #edd19b;
+                margin:-1px;
+                color:#390705;
+            }
+        </style>
     </head>
     <body>
         @section('sidebar')								
@@ -22,11 +31,81 @@
 
         <div class="container">
 		<div class="jumbotron">
-			<h1 class="display-4">My task</h1>
+			<h1 class="display-6">Уроци лого</h1>
 		</div>
 												
             @yield('content')
         </div>
+
+        <script>
+            $(function() {
+
+            var search = $('#video-search'),
+                content = $('#video-list'),
+                matches = $(), index = 0;
+
+            // Listen for the text input event
+            search.on('input', function(e) {
+                // Only search for strings 3 characters or more
+                if (search.val().length >= 3) {                    
+                    // Use the highlight plugin
+                    content.highlight(search.val(), function(found) {                
+                        found.parent().parent().css('background','yellow');
+                    });
+                }
+                else {
+                    content.highlightRestore();
+                }
+
+            });
+
+            });
+
+            (function($) {
+            var termPattern;
+            $.fn.highlight = function(term, callback) {
+                return this.each(function() {
+                    var elem = $(this);
+                    if (!elem.data('highlight-original')) {                        
+                        // Save the original element content
+                        elem.data('highlight-original', elem.html());                        
+                    } else {                        
+                        // restore the original content
+                        elem.highlightRestore();                        
+                    }
+
+                    termPattern = new RegExp('(' + term + ')', 'ig');
+                    // Search the element's contents
+                    walk(elem);
+
+                    // Trigger the callback
+                    callback && callback(elem.find('.match'));
+
+                });
+            };
+
+            $.fn.highlightRestore = function() {                
+                return this.each(function() {
+                    var elem = $(this);
+                    elem.html(elem.data('highlight-original'));
+                });
+                
+            };
+
+            function walk(elem) {
+                elem.contents().each(function() {
+                    if (this.nodeType == 3) { // text node
+                        if (termPattern.test(this.nodeValue)) {
+                            $(this).replaceWith(this.nodeValue.replace(termPattern, '<span class="match">$1</span>'));
+                        }
+                    } else {
+                        walk($(this));
+                    }
+                });
+            }
+
+            })(jQuery); 
+        </script>
     </body>
 </html>
 

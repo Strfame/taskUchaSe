@@ -23,10 +23,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="inputState">Предмет</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Предмет..</option>
-                                <option>...</option>
+                            <label for="subject_id">Предмет</label>
+                            <select id="subject_id" name="subject_id" class="form-control">
+                                @foreach($subjects as $subject)
+                                    <option value="{{$subject->id}}">{{ $subject->title }}</option>
+                                @endforeach
                             </select>
                         </div>
 

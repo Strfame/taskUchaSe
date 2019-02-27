@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Page Title')
+@section('title', 'Уроци')
 
 @section('sidebar')
     @parent
@@ -49,44 +49,45 @@
         @include('video_course._search_form')
     </nav>
 
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Видео урок</th>
-                <th scope="col">Предмет</th>								
-                <th scope="col">Име на файл</th>
-                <th scope="col">Описание</th>
-                <th scope="col">@sortablelink('created_at','Създаден на')</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($videoCourses as $video)
+    <div id="video-list">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>{{$video->title}}</td>
-                    <td>{{$video->subject->title}}</td>
-                    <td>{{$video->file_name}}</td>
-                    <td>{{$video->description}}</td>
-                    <td>{{$video->created_at->format('Y-m-d')}}</td>
+                    <th scope="col">Видео урок</th>
+                    <th scope="col">Предмет</th>								
+                    <th scope="col">Име на файл</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">@sortablelink('created_at','Създаден на')</th>
                 </tr>
-            @endforeach
-                @if($videoCourses->isEmpty())
+            </thead>
+            <tbody>
+                @foreach ($videoCourses as $video)
                     <tr>
-                        <td></td>
-                        <td>Няма намерени резултати...</td>												
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{$video->title}}</td>
+                        <td>{{$video->subject->title}}</td>
+                        <td>{{$video->file_name}}</td>
+                        <td>{{$video->description}}</td>
+                        <td>{{$video->created_at->format('Y-m-d')}}</td>
                     </tr>
+                @endforeach
+                    @if($videoCourses->isEmpty())
+                        <tr>
+                            <td></td>
+                            <td>Няма намерени резултати...</td>												
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
 
-                @endif
-        </tbody>
-    </table>
+                    @endif
+            </tbody>
+        </table>
+    </div>
 
     {{ $videoCourses->links("pagination::bootstrap-4") }}
 
     <!-- Modal -->
     @include('video_course._create_video_form')
     
-		
+    
 @endsection

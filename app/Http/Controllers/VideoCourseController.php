@@ -19,7 +19,6 @@ class VideoCourseController extends Controller
 
         $filterSubject = $request->get('filterSubject');
         $title = $request->get('searchTitle');
-
         $selectedSubjectId = $filterSubject > 0 ? $filterSubject : 0;
 
         $videoCourseQuery = VideoCourse::sortable()
@@ -49,6 +48,7 @@ class VideoCourseController extends Controller
     {					
         $request->validate([
             'title' => 'required|min:3|max:100',
+            'file_name' => 'required|min:3|max:100',
             'description' => 'required|max:500'
         ]);
 						
@@ -58,13 +58,5 @@ class VideoCourseController extends Controller
             ->back()
             ->with('success', 'The video course was saved.');
     }
-    
-    
-	public function show() {
-		
-		return view('video_course.show');
-    }
-    
-
 
 }
