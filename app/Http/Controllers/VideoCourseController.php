@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\VideoCourse;
+use App\Subject;
 
 class VideoCourseController extends Controller
 {
@@ -14,13 +15,28 @@ class VideoCourseController extends Controller
      */
     public function index(Request $request)
     {
+        $subjects = Subject::all();
+
+        $filterSubject = $request->get('filterSubject');
         $title = $request->get('searchTitle');
 
-        $videoCourses = VideoCourse::sortable()
-            ->where('title', 'LIKE', '%'.$title.'%')																
-            ->paginate(5);
+        $selectedSubjectId = $filterSubject > 0 ? $filterSubject : 0;
+
+        $videoCourseQuery = VideoCourse::sortable()
+            ->where('title', 'LIKE', '%'.$title.'%');
+
+        // If we have a filter by subject
+        if($filterSubject > 0) {
+            $videoCourseQuery->where('subject_id', $filterSubject);
+        }   
+        $videoCourses = $videoCourseQuery->paginate(5);
 		
-        return view('video_course.index', ['videoCourses' => $videoCourses, 'searchTitle' => $title]);
+        return view('video_course.index', [
+            'videoCourses' => $videoCourses,
+            'searchTitle' => $title,
+            'subjects' => $subjects,
+            'selectedSubjectId' => $selectedSubjectId
+        ]);
     }
     
     /**

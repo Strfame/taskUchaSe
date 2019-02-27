@@ -6,9 +6,11 @@
         name="searchTitle"
         aria-label="Search">
 
-    <select id="inputState" class="form-control mr-sm-2">
-        <option selected>Предмет..</option>
-        <option>...</option>
+    <select id="filterSubject" name="filterSubject" class="form-control mr-sm-2">
+        <option selected value="0">Предмет..</option>
+        @foreach($subjects as $subject )
+            <option value="{{ $subject->id }}" {{ ( $subject->id == $selectedSubjectId ) ? 'selected' : '' }} >{{ $subject->title }}</option>
+        @endforeach
     </select>
 
     <button class="btn btn-outline-dark btn-sm"
